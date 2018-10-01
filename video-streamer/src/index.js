@@ -6,20 +6,25 @@ import YTSearch from 'youtube-api-search';
 import SearchBar from './components/search_bar';
 import VideoList from './components/video_list';
 import VideoDetail from './components/video_detail';
+import dotenv from 'dotenv';
 import './style/style.css';
 
-const APP_KEY = process.env.YOUTUBE_API3_API_KEY;
+const APP_KEY = process.env.REACT_APP_YOUTUBE_API3_API_KEY;
 
 class App extends Component {
 
 	constructor(props) {
 		super(props);
+		console.log(APP_KEY);
 		this.state = {
 			videos : [],
 			selectedVideo : null
 		};
+		this.videoSearch('reactjs');
+	}
 
-		YTSearch({key: APP_KEY, term: 'reactjs'}, (videos) => {
+	videoSearch(term) {
+		YTSearch({key: APP_KEY, term: term}, (videos) => {
 			this.setState({
 				videos: videos,
 				selectedVideo: videos[0]
@@ -30,7 +35,7 @@ class App extends Component {
 	render() {
 		return (
 			<div>
-				<SearchBar/>
+				<SearchBar onSearchTermChange={term => this.videoSearch(term)}/>
 				<VideoDetail video={this.state.selectedVideo}/>
 				<VideoList
 					onVideoSelect={selectedVideo => this.setState({selectedVideo})}

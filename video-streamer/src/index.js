@@ -8,7 +8,7 @@ import VideoList from './components/video_list';
 import VideoDetail from './components/video_detail';
 import './style/style.css';
 
-const APP_KEY = 'AIzaSyAobBsL5n0OrQr4P_WdPrglodlZiQICu7E';
+const APP_KEY = process.env.YOUTUBE_API3_API_KEY;
 
 class App extends Component {
 
